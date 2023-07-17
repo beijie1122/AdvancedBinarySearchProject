@@ -55,6 +55,41 @@ int GetLastPosition(std::vector<int>& nums, int target)
 	return ans;
 }
 
+int GetIndex(std::vector<int>& nums, int target, bool GetFirst)
+{
+	int s = 0;
+	int e = nums.size() - 1;
+	int ans = -1;
+	while (s <= e)
+	{
+		int mid = (s + e) / 2;
+
+		if (nums[mid] == target)
+		{
+			ans = mid;
+			if (GetFirst == true)
+			{
+				e = mid - 1;
+			}
+			else
+			{
+				s = mid + 1;
+			}
+			//return mid; // Original Binary Search 
+		}
+		else if (nums[mid] < target)
+		{
+			s = mid + 1;
+		}
+		else
+		{
+			e = mid - 1;
+		}
+	}
+	return ans;
+}
+
+
 
 int main()
 {
@@ -63,10 +98,14 @@ int main()
 
 	int TargetNum = 8;
 
-	int First = GetFirstPosition(nums, TargetNum);
-	int Last = GetLastPosition(nums, TargetNum);
+	int First = GetIndex(nums, TargetNum, true);
+	int Last = GetIndex(nums, TargetNum, false);
 
 	std::cout << First << " " << Last << "\n";
+
+	int Testing = First * (First > Last) + Last * (First < Last);
+
+	std::cout << Testing << "\n";
 
 	return 0;
 }
