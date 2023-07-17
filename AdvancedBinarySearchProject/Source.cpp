@@ -19,7 +19,7 @@ int GetFirstPosition(std::vector<int>& nums, int target)
 		else if (nums[mid] < target)
 		{
 			s = mid + 1;
-		}
+		} 
 		else
 		{
 			e = mid - 1;
