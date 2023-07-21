@@ -89,7 +89,86 @@ int GetIndex(std::vector<int>& nums, int target, bool GetFirst)
 	return ans;
 }
 
+int BinarySearchForRotatedSortedArray(std::vector<int>& a, int key)
+{
+	int s = 0;
+	int e = a.size() - 1;
+	while (s <= e)
+	{
+		int mid = (s + e) / 2;
+		if (a[mid] == key)
+		{
+			return mid;
+		}
 
+		if (a[s] <= a[mid])
+		{
+			if (key >= a[s] && key <= mid)
+			{
+				e = mid - 1;
+			}
+			else
+			{
+				s = mid + 1;
+			}
+		}
+		else
+		{
+			if (key >= a[mid] && key <= a[e])
+			{
+				s = mid + 1;
+			}
+			else
+			{
+				e = mid - 1;
+			}
+		}
+		return -1;
+
+
+	}
+}
+
+int MajorityElementMooreAlgo(std::vector<int>& A)
+{
+	int cand = A[0];
+	int count = 1;
+
+	int n = A.size();
+	for (int i = 1; i < n; i++)
+	{
+		if (A[i] == cand)
+		{
+			count++;
+		}
+		else
+		{
+			count--;
+			if (count == 0)
+			{
+				cand = A[i];
+				count = 1;
+			}
+		}
+		// we cannot always assume majority element is there
+		int count2 = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (A[i] == cand)
+			{
+				count2++;
+			}
+		}
+		if (count2 > n / 2)
+		{
+			return cand;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+}
 
 int main()
 {
